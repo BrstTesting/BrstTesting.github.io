@@ -1004,3 +1004,117 @@ body {
         margin-left: 0;
     }
 }
+
+/* --- Mobile & layout fixes (append) --- */
+
+/* Prevent mobile browsers from auto-zooming on font-size changes and ensure full-width */
+html, body {
+    width: 100%;
+    min-width: 100%;
+    -webkit-text-size-adjust: 100%; /* avoid iOS text autosizing */
+    -ms-text-size-adjust: 100%;
+}
+
+/* Ensure no element forces the page wider than the viewport */
+* {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Images / svgs must not overflow and should scale */
+img, svg, picture {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Keep .container padding consistent and ensure centering */
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* Make main sections center even if .container is missing inside them */
+.hero,
+.music-section,
+.about-section,
+.contact-section,
+.footer {
+    width: 100%;
+    padding-inline: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+/* If hero children are wide, constrain and center them */
+.hero > .hero-content,
+.hero > .hero-visual {
+    width: 100%;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Strong horizontal overflow guard for playlist and global layout */
+body, .nav-container, .nav-menu, .track-list, .playlist, .music-player {
+    overflow-x: hidden;
+}
+
+/* Playlist: ensure truncation works and rows don't push layout */
+.track-list .track-item {
+    min-width: 0; /* critical for flex children to shrink */
+    overflow: hidden;
+}
+
+/* Ensure the flexible info area allows ellipsis */
+.track-info-small {
+    min-width: 0; /* already set but reinforce */
+}
+
+/* Desktop: make nav-menu horizontally centered and not stick to left */
+@media (min-width: 769px) {
+    .nav-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .nav-menu {
+        position: relative;
+        left: auto;
+        top: auto;
+        display: flex;
+        transform: none;
+    }
+}
+
+/* Mobile: reduce initial spacing and ensure hamburger visible */
+@media (max-width: 768px) {
+    /* Reduce global paddings that can create a cramped look */
+    .container { padding-left: .75rem; padding-right: .75rem; }
+    .nav-container { padding-left: .75rem; padding-right: .75rem; }
+
+    /* Hamburger visible already; make menu full-bleed when open */
+    .nav-menu.active {
+        left: 0;
+        right: 0;
+        width: 100%;
+    }
+
+    /* Playlist row: prefer wrapping on very small screens */
+    .track-info-small {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .track-name, .track-artist-small {
+        white-space: normal;
+        overflow: hidden;
+    }
+}
+
+/* Optional: subtle fix if a browser is still zooming in — forces initial scale behavior
+   (kept conservative, you already have viewport meta; remove only if it causes issues) */
+@supports (-webkit-overflow-scrolling: touch) {
+    /* no-op; keeps the rule block for easy removal if needed */
+}

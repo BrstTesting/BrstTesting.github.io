@@ -412,6 +412,33 @@ body {
     font-weight: 500;
 }
 
+/* Make track title smaller and improve line-height for wrapping */
+.track-list .track-name,
+.track-name {
+  font-size: 0.95rem;    /* smaller title size */
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Override: make track title smaller (forceful, safe) */
+.track-list .track-name,
+.track-name {
+  font-size: 0.76rem !important;
+  line-height: 1.15 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Very small phones */
+@media (max-width: 420px) {
+  .track-list .track-name,
+  .track-name {
+    font-size: 0.78rem !important;
+    line-height: 1.12 !important;
+  }
+}
+
 .track-duration {
     color: #888;
     font-size: 0.9rem;
